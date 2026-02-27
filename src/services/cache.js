@@ -1,89 +1,109 @@
 import { createClient } from "redis";
-import { users } from "./../models/users.js";
-
-const log = console.log;
+import { users } from "../models/users.js";
 
 class UserCache {
   constructor() {
-    this.client = createClient({ url: process.env.REDIS_URL });
-    this.client.on("error", (err) => {
-      log("Redis connection error", err.message);
+    this.client = createClient({
+      url: process.env.REDIS_URL || "redis://localhost:6379",
     });
+
+    this.client.on("error", (err) =>
+      console.error("Redis error:", err.message),
+    );
   }
 
   async connect() {
-    await this.client.connect();
-    log("Redis connected");
-  }
-
-  // Remove password before sending user data
-  sanitizeUser(user) {
-    if (!user) return null;
-    const { password, ...safe } = user;
-    return safe;
+    if (!this.client.isOpen) {
+      await this.client.connect();
+    }
   }
 
   // Get all users (no caching)
   async getAllUsers() {
-    return users.map((u) => this.sanitizeUser(u));
+    return users;
   }
 
-  // Get a single user ( check cache first)
+  // Get user by id from the cache
   async getUser(id) {
-    const cachedUser = await this.client.get(id);
+    await this.connect();
 
-    if (cachedUser) {
-      return this.sanitizeUser(JSON.parse(cachedUser));
+    const key = `user:${id}`;
+    const cached = await this.client.get(key);
+
+    if (cached) {
+      try {
+        return JSON.parse(cached);
+      } catch {
+        await this.client.del(key);
+      }
     }
 
     const user = users.find((u) => u.id === id);
     if (user) {
-      await this.client.set(id, JSON.stringify(user));
+      await this.client.set(key, JSON.stringify(user));
     }
-    return this.sanitizeUser(user);
+
+    return user || null;
   }
 
-  // Add a new user
+  // Add user
   async addUser(user) {
+    await this.connect();
+
     users.push(user);
-    await this.client.set(user.id, JSON.stringify(user));
-    return this.sanitizeUser(user);
+    await this.client.set(`user:${user.id}`, JSON.stringify(user));
+
+    return user;
   }
 
-  // Update an existing user
+  // Update user
   async updateUser(id, data) {
+    await this.connect();
+
     const index = users.findIndex((u) => u.id === id);
     if (index === -1) return null;
+
     users[index] = { ...users[index], ...data };
-    await this.client.set(id, JSON.stringify(users[index]));
-    return this.sanitizeUser(users[index]);
+
+    await this.client.set(`user:${id}`, JSON.stringify(users[index]));
+
+    return users[index];
   }
 
-  // Delete a user
+  // Delete user
   async deleteUser(id) {
+    await this.connect();
+
     const index = users.findIndex((u) => u.id === id);
-    if (index === -1) {
-      log("User not found");
-    }
+    if (index === -1) return false;
 
     users.splice(index, 1);
-    await this.client.del(id);
+    await this.client.del(`user:${id}`);
+
     return true;
   }
 
-  // Reset password for a user
+  // Reset password
   async resetPassword(id, oldPassword, newPassword) {
-    const user = users.find((u) => u.id === id);
-    if (!user) {
-      log("Provide a valid id");
-    }
+    await this.connect();
+
+    const index = users.findIndex((u) => u.id === id);
+    if (index === -1) return null;
+
+    const user = users[index];
+
     if (user.password !== oldPassword) {
-      log("Provide old password to reset password");
+      return null;
     }
+
     user.password = newPassword;
-    await this.client.set(id, JSON.stringify(user));
-    return true;
+
+    await this.client.set(`user:${id}`, JSON.stringify(user));
+
+    return user;
   }
 }
+
 const userCache = new UserCache();
+await userCache.connect();
 export default userCache;

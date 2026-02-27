@@ -7,8 +7,8 @@
   "type": "module",
   "main": "./src/index.js",
   "scripts": {
-    "dev": "PORT=4500 nodemon src/index.js",
-    "start": "PORT=4500 node src/index.js"
+    "dev": "PORT=4500 NODE_ENV=development nodemon src/index.js",
+    "start": "PORT=4500 NODE_ENV=development node src/index.js"
   },
   "dependencies": {
     "cors": "^2.8.6",

@@ -4,20 +4,46 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Express API Project</title>
-    <link rel="icon" type="image/x-icon" href="./public/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="./favicon.ico" />
   </head>
   <body>
-    <h1>API Endpoints</h1>
-    <ul>
-      <li><a href="/api/users">GET /api/users</a></li>
-      <li><a href="/api/users/:id">GET /api/users/:id</a></li>
-      <li><a href="/api/user">POST /api/user</a></li>
-      <li><a href="/api/user/:id">PUT /api/user/:id</a></li>
-      <li><a href="/api/user/:id">DELETE /api/user/:id</a></li>
-      <li><a href="/api/auth/signup">POST /api/auth/signup</a></li>
-      <li><a href="/api/auth/login">POST /api/auth/login</a></li>
-      <li><a href="/api/auth/me">GET /api/auth/me</a></li>
-      <li><a href="/api/auth/reset">POST /api/auth/reset</a></li>
-    </ul>
+    <h1>User API Endpoints</h1>
+
+    <h2>GET "/"</h2>
+    <p>Provide message about server being online.</p>
+
+    <h2>GET "/api"</h2>
+    <p>List of endpoints.</p>
+
+    <h2>POST "/api/auth/signup"</h2>
+    <p>Signup to create a user.</p>
+    <p><strong>Body:</strong> email, password, firstName, lastName</p>
+
+    <h2>POST "/api/auth/login"</h2>
+    <p>Log in to an existing user account.</p>
+    <p><strong>Body:</strong> email, password</p>
+
+    <h2>GET "/api/auth/me"</h2>
+    <p>Return logged-in user details (no password).</p>
+
+    <h2>POST "/api/auth/reset"</h2>
+    <p>Update password for logged-in user.</p>
+    <p><strong>Body:</strong> oldPassword, newPassword</p>
+
+    <h2>GET "/api/users"</h2>
+    <p>Return list of users.</p>
+
+    <h2>GET "/api/users/:id"</h2>
+    <p>Return one user.</p>
+
+    <h2>POST "/api/users"</h2>
+    <p>Add a user (same as signup).</p>
+
+    <h2>PUT "/api/users/:id"</h2>
+    <p>Update email, firstName, lastName.</p>
+    <p><strong>Body:</strong> email, firstName, lastName</p>
+
+    <h2>DELETE "/api/users/:id"</h2>
+    <p>Delete a user (not yourself).</p>
   </body>
 </html>

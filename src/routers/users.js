@@ -1,16 +1,25 @@
 import { Router } from "express";
-import UserController from "./../controllers/users.js";
-import UserAuth from "./../services/auth.js";
+import UserController from "../controllers/users.js";
+import UserAuth from "../routers/auth/index.js";
 
-const router = Router();
+const userRouter = Router();
 
 // All user routes require JWT authorization
-router.use(UserAuth.authorize);
+userRouter.use(UserAuth.authorize);
 
-router.get("/", UserController.getAllUsers);
-router.get("/:id", UserController.getUser);
-router.post("/", UserController.addUser);
-router.put("/:id", UserController.updateUser);
-router.delete("/:id", UserController.deleteUser);
+// GET /api/users
+userRouter.get("/", UserController.getAllUsers);
 
-export default router;
+// GET /api/users/:id
+userRouter.get("/:id", UserController.getUser);
+
+// POST /api/users
+userRouter.post("/", UserController.addUser);
+
+// PUT /api/users/:id
+userRouter.put("/:id", UserController.updateUser);
+
+// DELETE /api/users/:id
+userRouter.delete("/:id", UserController.deleteUser);
+
+export default userRouter;
