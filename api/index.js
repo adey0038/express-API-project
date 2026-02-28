@@ -1,4 +1,4 @@
 // Needed for vercel to run
-import app from "./../index.js";
+import app from "../src/index.js";
 
 export default app;

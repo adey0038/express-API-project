@@ -154,3 +154,4 @@
 {"level":"info","message":"POST /api/auth/signup","timestamp":"2026-02-28T03:30:11.159Z"}
 {"level":"info","message":"POST /api/auth/login","timestamp":"2026-02-28T03:30:14.373Z"}
 {"level":"info","message":"GET /api/users","timestamp":"2026-02-28T03:30:17.640Z"}
+{"level":"info","message":"Server running on port 4500","timestamp":"2026-02-28T03:39:33.016Z"}
