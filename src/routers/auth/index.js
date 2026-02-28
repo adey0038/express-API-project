@@ -24,6 +24,7 @@ class UserAuth {
 
   // POST /api/auth/signup
   static async signup(req, res) {
+    // console.log("Body received", req.body);
     try {
       const { firstName, lastName, email, password } = req.body || {};
 
@@ -49,10 +50,13 @@ class UserAuth {
 
       return res.status(201).json({
         id: newUser.id,
-        name: newUser.name,
+        firstName: newUser.firstName,
+        lastName: newUser.lastName,
         email: newUser.email,
+        count: newUser.count,
       });
     } catch (err) {
+      //   console.error("Signup Error", err);
       return res.status(400).json({ error: "Invalid submission" });
     }
   }
@@ -67,6 +71,8 @@ class UserAuth {
       }
 
       const user = await UserService.login(email, password);
+
+      console.log("Found user", user);
       if (!user || user.password !== password) {
         return res.status(401).json({ error: "Invalid email or password" });
       }
@@ -84,10 +90,7 @@ class UserAuth {
 
       const { password: pw, ...safeUser } = user;
 
-      return res.status(200).json({
-        token,
-        user: safeUser,
-      });
+      return res.status(200).json({ message: "Successful Login", token });
     } catch (err) {
       return res.status(401).json({ error: "Invalid email or password" });
     }

@@ -4,7 +4,7 @@ import { users } from "../models/users.js";
 class UserCache {
   constructor() {
     this.client = createClient({
-      url: process.env.REDIS_URL || "redis://localhost:6379",
+      url: process.env.REDIS_URL,
     });
 
     this.client.on("error", (err) =>
@@ -44,6 +44,10 @@ class UserCache {
     }
 
     return user || null;
+  }
+
+  async findByEmail(email) {
+    return users.find((u) => u.email === email) || null;
   }
 
   // Add user
@@ -101,6 +105,13 @@ class UserCache {
     await this.client.set(`user:${id}`, JSON.stringify(user));
 
     return user;
+  }
+
+  // Login
+  async login(email, password) {
+    return (
+      users.find((u) => u.email === email && u.password === password) || null
+    );
   }
 }
 

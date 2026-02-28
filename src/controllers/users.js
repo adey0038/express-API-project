@@ -86,7 +86,9 @@ class UserController {
           .json({ error: 400, message: "error while deleting user" });
       }
 
-      return res.status(204).send();
+      return res
+        .status(200)
+        .json({ error: 200, message: "User deleted successfully" });
     } catch (err) {
       return res
         .status(400)
