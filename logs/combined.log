@@ -136,3 +136,16 @@
 {"level":"info","message":"Server running on port 4500","timestamp":"2026-02-28T02:24:45.739Z"}
 {"level":"info","message":"Server running on port 4500","timestamp":"2026-02-28T02:29:56.072Z"}
 {"level":"info","message":"Server running on port 4500","timestamp":"2026-02-28T02:30:07.547Z"}
+{"level":"info","message":"POST /api/auth/signup","timestamp":"2026-02-28T02:32:10.114Z"}
+{"level":"info","message":"POST /api/auth/login","timestamp":"2026-02-28T02:32:16.138Z"}
+{"level":"info","message":"GET /api/users","timestamp":"2026-02-28T02:32:32.091Z"}
+{"level":"info","message":"PUT /api/users/dab51e21-eb16-4f33-9d3d-d8a8684fdbfa","timestamp":"2026-02-28T02:32:50.764Z"}
+{"level":"info","message":"PUT /api/users/315a25fc-e3c3-48b3-af20-15492e1cce26","timestamp":"2026-02-28T02:33:06.754Z"}
+{"level":"info","message":"DELETE /api/users/10a3bd4c-d005-46eb-80f6-7daf2d872dca","timestamp":"2026-02-28T02:33:34.432Z"}
+{"level":"info","message":"POST /api/auth/reset","timestamp":"2026-02-28T02:33:48.798Z"}
+{"level":"info","message":"POST /api/auth/reset","timestamp":"2026-02-28T02:34:11.723Z"}
+{"level":"info","message":"Server running on port 4500","timestamp":"2026-02-28T02:56:22.082Z"}
+{"level":"info","message":"Server running on port 4500","timestamp":"2026-02-28T02:56:43.184Z"}
+{"level":"info","message":"Server running on port 4500","timestamp":"2026-02-28T02:56:48.020Z"}
+{"level":"info","message":"POST /api/auth/signup","timestamp":"2026-02-28T03:11:25.907Z"}
+{"level":"info","message":"POST /api/auth/login","timestamp":"2026-02-28T03:11:29.614Z"}
