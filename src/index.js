@@ -3,10 +3,13 @@ import cors from "cors";
 import dotenv from "dotenv";
 import path from "node:path";
 import winston from "winston";
+import { fileURLToPath } from "url";
 
-const dir = process.cwd(); //our current project folder
-const file = path.resolve(dir, ".env");
-dotenv.config({ path: file, debug: true, encoding: "utf-8" });
+dotenv.config();
+
+// Fix __dirname for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 import usersRouter from "./routers/users.js";
 import UserAuth from "./routers/auth/index.js";
@@ -22,11 +25,11 @@ const logger = winston.createLogger({
   ),
   transports: [
     new winston.transports.File({
-      filename: path.join(dir, "logs/error.log"),
+      filename: path.join(__dirname, "logs/error.log"),
       level: "error",
     }),
     new winston.transports.File({
-      filename: path.join(dir, "logs/combined.log"),
+      filename: path.join(__dirname, "logs/combined.log"),
     }),
   ],
 });
@@ -48,7 +51,7 @@ app.use((req, res, next) => {
 });
 
 //Serve static files in public folder to use localhost:4500/endpoints.html
-app.use(express.static(path.join(dir, "public")));
+app.use(express.static(path.join(__dirname, "public")));
 
 // Public auth routes
 app.post("/api/auth/signup", UserAuth.signup);
