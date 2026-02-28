@@ -47,7 +47,7 @@ app.use((req, res, next) => {
   next();
 });
 
-//Serve static files in public folder
+//Serve static files in public folder to use localhost:4500/endpoints.html
 app.use(express.static(path.join(dir, "public")));
 
 // Public auth routes
@@ -66,7 +66,16 @@ app.get("/", (req, res) => {
 app.get("/api", (req, res) => {
   res.status(200).json({
     message: "User API endpoints",
-    html: "/public/endpoints.html",
+    endpoints: {
+      signup: "POST /api/auth/signup",
+      login: "POST /api/auth/login",
+      me: "GET /api/auth/me",
+      reset: "POST /api/auth/reset",
+      getAll: "GET /api/users",
+      getOne: "GET /api/users/:id",
+      update: "PUT /api/users/:id",
+      delete: "DELETE /api/users/:id",
+    },
   });
 });
 

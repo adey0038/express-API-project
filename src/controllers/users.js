@@ -87,8 +87,8 @@ class UserController {
       }
 
       return res
-        .status(200)
-        .json({ error: 200, message: "User deleted successfully" });
+        .status(204)
+        .json({ error: 204, message: "User deleted successfully" });
     } catch (err) {
       return res
         .status(400)

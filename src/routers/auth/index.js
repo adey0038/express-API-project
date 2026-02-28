@@ -72,7 +72,7 @@ class UserAuth {
 
       const user = await UserService.login(email, password);
 
-      console.log("Found user", user);
+      //   console.log("Found user", user);
       if (!user || user.password !== password) {
         return res.status(401).json({ error: "Invalid email or password" });
       }
