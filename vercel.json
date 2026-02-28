@@ -4,7 +4,8 @@
   "routes": [
     { "src": "/", "dest": "/api/index.js" },
     { "src": "/api/(.*)", "dest": "/api/index.js" },
-    { "src": "/endpoints.html", "dest": "/public/endpoints.html" },
-    { "src": "/(.*)", "dest": "/public/$1" }
+    { "src": "/endpoints.html", "dest": "./public/endpoints.html" },
+    { "src": "/favicon.ico", "dest": "./public/favicon.ico" },
+    { "src": "/(.*)", "dest": "./public/$1" }
   ]
 }

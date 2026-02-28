@@ -3,3 +3,7 @@
 {"level":"info","message":"Server running on port 4500","timestamp":"2026-02-28T03:59:17.252Z"}
 {"level":"info","message":"Server running on port 4500","timestamp":"2026-02-28T04:06:41.299Z"}
 {"level":"info","message":"Server running on port 4500","timestamp":"2026-02-28T04:07:52.046Z"}
+{"level":"info","message":"POST /api/auth/signup","timestamp":"2026-02-28T22:06:16.439Z"}
+{"level":"info","message":"POST /api/auth/login","timestamp":"2026-02-28T22:06:20.167Z"}
+{"level":"info","message":"GET /api/users","timestamp":"2026-02-28T22:06:33.807Z"}
+{"level":"info","message":"Server running on port 4500","timestamp":"2026-02-28T22:12:06.111Z"}
