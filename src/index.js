@@ -90,11 +90,9 @@ app.use((req, res) =>
   res.status(404).json({ error: 404, message: "Endpoint not found" }),
 );
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, (err) => {
-  if (err) {
-    logger.error("Unable to launch", err.message);
-    return;
-  }
-  logger.info(`Server running on port ${PORT}`);
-});
+if (process.env.NODE_ENV !== "production") {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => logger.info(`Server running on port ${PORT}`));
+}
+
+export default app;
